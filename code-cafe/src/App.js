@@ -1,8 +1,15 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Details from './components/Details';
 import Header from './components/Header';
 import Home from './components/Home';
+import NotFound from './components/NotFound';
+import DetailItem from './components/DetailItem';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -13,10 +20,17 @@ function App() {
       .catch(console.error);
   }, []);
   return (
-    <div>
+    <Router>
       <Header />
-      <Home items={items} />
-    </div>
+      <Routes>
+        <Route path="/details" element={<Details items={items} />}>
+          <Route path=":id" element={<DetailItem />} />
+          <Route index element={<div>No Item Selected</div>} />
+        </Route>
+        <Route path="/" element={<Home items={items} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
 
