@@ -11,6 +11,9 @@ function DetailItem({ items }) {
     <div className="detail-item-component">
       {detailItem ? (
         <>
+          {detailItem.salePrice && detailItem.salePrice > 0 ? (
+            <div>On Sale!</div>
+          ) : null}
           <img
             className="details-image"
             src={itemImages[detailItem.imageId]}
